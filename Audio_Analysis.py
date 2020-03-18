@@ -3,7 +3,7 @@ import librosa
 import numpy as np
 import pandas as pd
 
-
+# extracting features from samples and saving to file
 def feature_Extraction(genre, number):
     genres = ["blues", "classical", "country", "disco", "hiphop", "jazz", "metal", "pop", "reggae", "rock"]
     if number < 10:
@@ -22,14 +22,13 @@ def feature_Extraction(genre, number):
     return data
 
 
-
 dataset = []
-
-for genres in range(10):
+genres = ["blues", "classical", "country", "disco", "hiphop", "jazz", "metal", "pop", "reggae", "rock"]
+for genre in range(10):
     for songs in range(100):
-        data = feature_Extraction(genres, songs)
+        data = feature_Extraction(genre, songs)
+        data.append(genres[genre])
         dataset.append(data)
 
-df = pd.DataFrame(dataset, columns=["Zero crossing", "Centroid", "Rolloff", "MFCC", "Chroma Freq"])
+df = pd.DataFrame(dataset, columns=["Zero crossing", "Centroid", "Rolloff", "MFCC", "Chroma Freq", "Genre"])
 df.to_csv("music.data", index=False)
-print("DONE")
