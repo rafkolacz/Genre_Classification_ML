@@ -1,0 +1,88 @@
+import librosa
+import matplotlib.pyplot as plt
+import librosa.display
+import numpy as np
+
+
+# Plik do obserwacji, porownywania cech oraz podziwiania wykresow
+
+audio_path = 'Gitzan/genres/genres/blues/blues.00000.wav'
+y, sr = librosa.load(audio_path)
+S, phase = librosa.magphase(librosa.stft(y=y))
+# print(type(x), type(sr))
+
+# Zero crossing
+zero_crossing = librosa.feature.zero_crossing_rate(y)
+print("Zero_crossing: ", np.sum(zero_crossing))
+
+''' # Wykres widma
+plt.figure()
+librosa.display.waveplot(y, sr=sr)
+plt.show()
+'''
+# Spectral Centroid
+cent = librosa.feature.spectral_centroid(y=y, sr=sr)
+print("Spectral Centroid: ", np.sum(cent))
+
+''' Wykres do spectral centroidu
+plt.figure()
+plt.subplot(2, 1, 1)
+plt.semilogy(cent.T, label='Spectral centroid')
+plt.ylabel('Hz')
+plt.xticks([])
+plt.xlim([0, cent.shape[-1]])
+plt.legend()
+plt.subplot(2, 1, 2)
+librosa.display.specshow(librosa.amplitude_to_db(S, ref=np.max), y_axis='log', x_axis='time')
+plt.title('log Power spectrogram')
+plt.tight_layout()
+plt.show()
+'''
+
+# Roll off
+rolloff = librosa.feature.spectral_rolloff(y=y, sr=sr)
+print("Spectral rolloff: ", np.sum(rolloff))
+
+'''
+plt.figure()
+plt.subplot(2, 1, 1)
+plt.semilogy(rolloff.T, label='Roll-off frequency')
+plt.ylabel('Hz')
+plt.xticks([])
+plt.xlim([0, rolloff.shape[-1]])
+plt.legend()
+plt.subplot(2, 1, 2)
+librosa.display.specshow(librosa.amplitude_to_db(S, ref=np.max),
+                         y_axis='log', x_axis='time')
+plt.title('log Power spectrogram')
+plt.tight_layout()
+plt.show()
+'''
+
+# Mel-Frequency Cepstral Coefficients
+mfcc = librosa.feature.mfcc(y, sr=sr)
+print("MFCC: ", np.sum(mfcc))
+
+'''
+plt.figure(figsize=(10, 4))
+librosa.display.specshow(mfcc, x_axis='time')
+plt.colorbar()
+plt.title('MFCC')
+plt.tight_layout()
+plt.show()
+'''
+
+# Chroma stft
+chroma = librosa.feature.chroma_stft(y=y, sr=sr)
+print("Chroma Freq: ", np.sum(chroma))
+
+'''
+plt.figure(figsize=(10, 4))
+librosa.display.specshow(chroma, y_axis='chroma', x_axis='time')
+plt.colorbar()
+plt.title('Chromagram')
+plt.tight_layout()
+plt.show()
+
+'''
+
