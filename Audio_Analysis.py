@@ -17,8 +17,12 @@ def feature_Extraction(genre, number):
     rolloff = librosa.feature.spectral_rolloff(y=y, sr=sr)
     mfcc = librosa.feature.mfcc(y, sr=sr)
     chroma = librosa.feature.chroma_stft(y=y, sr=sr)
+    tempo = librosa.feature.tempogram(y=y, sr=sr)
+    contrast = librosa.feature.spectral_contrast(y=y, sr=sr)
+    tonal = librosa.feature.tonnetz(y=y, sr=sr)
+    flatness = librosa.feature.spectral_flatness(y=y)
 
-    data = [np.sum(zero_crossing), np.sum(cent), np.sum(rolloff), np.sum(mfcc), np.sum(chroma)]
+    data = [np.sum(zero_crossing), np.sum(cent), np.sum(rolloff), np.sum(mfcc), np.sum(chroma), np.sum(tempo), np.sum(contrast), (np.sum(tonal)), (np.sum(flatness))]
     return data
 
 
@@ -30,5 +34,5 @@ for genre in range(10):
         data.append(genres[genre])
         dataset.append(data)
 
-df = pd.DataFrame(dataset, columns=["Zero crossing", "Centroid", "Rolloff", "MFCC", "Chroma Freq", "Genre"])
-df.to_csv("music.data", index=False)
+df = pd.DataFrame(dataset, columns=["Zero crossing", "Centroid", "Rolloff", "MFCC", "Chroma Freq", "Tempo", "Contrast", "Tonal", "Flatness", "Genre"])
+df.to_csv("music2.data", index=False)

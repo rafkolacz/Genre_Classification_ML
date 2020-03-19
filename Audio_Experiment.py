@@ -84,4 +84,19 @@ plt.tight_layout()
 plt.show()
 
 '''
+# Compute the tempogram
+tempo = librosa.feature.tempogram(y=y, sr=sr)
+print(np.sum(tempo))
+
+# spectral contrast
+contrast = librosa.feature.spectral_contrast(y=y, sr=sr)
+print(np.sum(contrast))
+
+# Computes the tonal centroid
+tonal = librosa.feature.tonnetz(y=y, sr=sr)
+print(np.sum(tonal))
+
+# Flatness
+flatness = librosa.feature.spectral_flatness(y=y)
+print(np.sum(flatness))
 
