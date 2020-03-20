@@ -9,7 +9,7 @@ from matplotlib import style
 from sklearn import linear_model, preprocessing
 from sklearn.metrics import confusion_matrix
 
-data = pd.read_csv("music2.data")
+data = pd.read_csv("music.data")
 
 predict = "Genre"
 
@@ -32,4 +32,13 @@ for x in range(len(predicted)):
 
 conf = confusion_matrix(predicted, y_test, labels=names)
 print(conf)
+
+
+# plots
+p = 'Genre'
+style.use("ggplot")
+pyplot.scatter(data[p], data["Chroma Freq"])
+pyplot.xlabel(p)
+pyplot.ylabel("Chroma Freq")
+pyplot.show()
 
