@@ -34,7 +34,7 @@ conf = confusion_matrix(predicted, y_test, labels=names)
 print(conf)
 
 
-# plots
+# data plots
 p = 'Genre'
 style.use("ggplot")
 pyplot.scatter(data[p], data["Chroma Freq"])
