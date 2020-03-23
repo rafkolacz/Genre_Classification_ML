@@ -3,6 +3,7 @@ import librosa
 import numpy as np
 
 
+
 # Plik do obserwacji, porownywania cech oraz podziwiania wykresow
 
 audio_path = 'Gitzan/genres/genres/blues/blues.00000.wav'
@@ -12,7 +13,7 @@ S, phase = librosa.magphase(librosa.stft(y=y))
 
 # Zero crossing
 zero_crossing = librosa.feature.zero_crossing_rate(y)
-print("Zero_crossing: ", np.sum(zero_crossing))
+print("Zero_crossing: ", np.mean(zero_crossing))
 
 ''' # Wykres widma
 plt.figure()
@@ -21,7 +22,7 @@ plt.show()
 '''
 # Spectral Centroid
 cent = librosa.feature.spectral_centroid(y=y, sr=sr)
-print("Spectral Centroid: ", np.sum(cent))
+print("Spectral Centroid: ", np.mean(cent))
 
 ''' Wykres do spectral centroidu
 plt.figure()
@@ -40,7 +41,7 @@ plt.show()
 
 # Roll off
 rolloff = librosa.feature.spectral_rolloff(y=y, sr=sr)
-print("Spectral rolloff: ", np.sum(rolloff))
+print("Spectral rolloff: ", np.mean(rolloff))
 
 '''
 plt.figure()
@@ -60,7 +61,7 @@ plt.show()
 
 # Mel-Frequency Cepstral Coefficients
 mfcc = librosa.feature.mfcc(y, sr=sr)
-print("MFCC: ", np.sum(mfcc))
+print("MFCC: ", np.mean(mfcc))
 
 '''
 plt.figure(figsize=(10, 4))
@@ -73,7 +74,7 @@ plt.show()
 
 # Chroma stft
 chroma = librosa.feature.chroma_stft(y=y, sr=sr)
-print("Chroma Freq: ", np.sum(chroma))
+print("Chroma Freq: ", np.mean(chroma))
 
 '''
 plt.figure(figsize=(10, 4))
@@ -86,18 +87,18 @@ plt.show()
 '''
 # Compute the tempogram
 tempo = librosa.feature.tempogram(y=y, sr=sr)
-print(np.sum(tempo))
+print(np.mean(tempo))
 
 # spectral contrast
 contrast = librosa.feature.spectral_contrast(y=y, sr=sr)
-print(np.sum(contrast))
+print(np.mean(contrast))
 
 # Computes the tonal centroid
 tonal = librosa.feature.tonnetz(y=y, sr=sr)
-print(np.sum(tonal))
+print(np.mean(tonal))
 
 # Flatness
 flatness = librosa.feature.spectral_flatness(y=y)
-print(np.sum(flatness))
+print(np.mean(flatness))
 
 # More data ?
