@@ -9,7 +9,7 @@ from matplotlib import style
 from sklearn import linear_model, preprocessing
 from sklearn.metrics import confusion_matrix
 
-data = pd.read_csv("music3.data")
+data = pd.read_csv("music1.data")
 
 predict = "Genre"
 
