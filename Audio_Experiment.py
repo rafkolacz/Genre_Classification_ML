@@ -61,8 +61,11 @@ plt.show()
 
 # Mel-Frequency Cepstral Coefficients
 mfcc = librosa.feature.mfcc(y, sr=sr)
-print("MFCC: ", np.mean(mfcc))
-
+x = 1
+for e in mfcc:
+    print("MFCC: ", np.mean(e))
+    print(x)
+    x += 1
 '''
 plt.figure(figsize=(10, 4))
 librosa.display.specshow(mfcc, x_axis='time')
