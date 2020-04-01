@@ -17,7 +17,7 @@ Y = np.array(data[predict])
 # le = preprocessing.LabelEncoder()
 # Y = le.fit_transform(Y)
 
-x_train, x_test, y_train, y_test = sklearn.model_selection.train_test_split(X, Y, test_size=0.2)
+x_train, x_test, y_train, y_test = sklearn.model_selection.train_test_split(X, Y, test_size=0.1)
 
 model = KNeighborsClassifier(n_neighbors=9)
 
