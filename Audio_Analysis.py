@@ -26,7 +26,7 @@ def feature_Extraction(genre, number):
     flatness = librosa.feature.spectral_flatness(y=y)
     onset_env = librosa.onset.onset_strength(y, sr=sr)
     bpm = librosa.beat.tempo(onset_envelope=onset_env, sr=sr)
-    #data = [np.mean(zero_crossing), np.mean(cent), np.mean(rolloff), np.mean(chroma), np.mean(rms),  np.mean(spec_bw)]
+    # data = [np.mean(zero_crossing), np.mean(cent), np.mean(rolloff), np.mean(chroma), np.mean(rms),  np.mean(spec_bw)]
     data = [np.mean(zero_crossing), np.mean(cent), np.mean(rolloff), np.mean(chroma),np.mean(rms),  np.mean(spec_bw),np.mean(tempo),np.mean(contrast),np.mean(tonal),np.mean(flatness),int(bpm[0])]
     for e in mfcc:
        data.append(np.mean(e))
