@@ -7,7 +7,7 @@ from keras import layers
 from sklearn.metrics import confusion_matrix
 
 
-data = pd.read_csv("music7.data")
+data = pd.read_csv("music8.data")
 
 genre_list = data.iloc[:, -1]
 encoder = LabelEncoder()

@@ -7,7 +7,7 @@ from matplotlib import style
 from sklearn.metrics import confusion_matrix
 from sklearn import linear_model, preprocessing
 
-data = pd.read_csv("music7.data")
+data = pd.read_csv("Data/music3.data")
 
 predict = "Genre"
 
@@ -19,7 +19,7 @@ Y = np.array(data[predict])
 
 x_train, x_test, y_train, y_test = sklearn.model_selection.train_test_split(X, Y, test_size=0.2)
 
-model = KNeighborsClassifier(n_neighbors=31)
+model = KNeighborsClassifier(n_neighbors=9)
 
 model.fit(x_train,y_train)
 
@@ -33,6 +33,7 @@ for x in range(len(predicted)):
 
 conf = confusion_matrix(predicted, y_test, labels=names)
 print(conf)
+
 
 '''
 # data plots

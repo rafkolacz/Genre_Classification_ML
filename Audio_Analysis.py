@@ -24,8 +24,10 @@ def feature_Extraction(genre, number):
     contrast = librosa.feature.spectral_contrast(y=y, sr=sr)
     tonal = librosa.feature.tonnetz(y=y, sr=sr)
     flatness = librosa.feature.spectral_flatness(y=y)
+    onset_env = librosa.onset.onset_strength(y, sr=sr)
+    bpm = librosa.beat.tempo(onset_envelope=onset_env, sr=sr)
     #data = [np.mean(zero_crossing), np.mean(cent), np.mean(rolloff), np.mean(chroma), np.mean(rms),  np.mean(spec_bw)]
-    data = [np.mean(zero_crossing), np.mean(cent), np.mean(rolloff), np.mean(chroma),np.mean(rms),  np.mean(spec_bw),np.mean(tempo),np.mean(contrast),np.mean(tonal),np.mean(flatness)]
+    data = [np.mean(zero_crossing), np.mean(cent), np.mean(rolloff), np.mean(chroma),np.mean(rms),  np.mean(spec_bw),np.mean(tempo),np.mean(contrast),np.mean(tonal),np.mean(flatness),int(bpm[0])]
     for e in mfcc:
        data.append(np.mean(e))
     return data
@@ -42,10 +44,10 @@ for genre in range(10):
 
 
 #columns = ["Zero crossing", "Centroid", "Rolloff", "Chroma Freq", "Tempo", "Contrast", "Tonal", "Flatness"]
-columns = ["Zero crossing", "Centroid", "Rolloff", "Chroma Freq", "RMS", "Spectral Bandwidth", "Tempo", "Contrast", "Tonal", "Flatness"]
+columns = ["Zero crossing", "Centroid", "Rolloff", "Chroma Freq", "RMS", "Spectral Bandwidth", "Tempo", "Contrast", "Tonal", "Flatness", "BPM"]
 for i in range(20):
     columns.append("MFCC " + str(i + 1))
 columns.append("Genre")
 
 df = pd.DataFrame(dataset, columns=columns)
-df.to_csv("music7.data", index=False)
+df.to_csv("music8.data", index=False)

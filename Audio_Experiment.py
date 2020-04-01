@@ -105,3 +105,11 @@ flatness = librosa.feature.spectral_flatness(y=y)
 print(np.mean(flatness))
 
 # More data ?
+onset_env = librosa.onset.onset_strength(y, sr=sr)
+
+bpm = librosa.beat.tempo(onset_envelope=onset_env, sr=sr)
+print(int(bpm[0]))
+bpm = librosa.beat.tempo(y=y, sr=sr)
+
+#pulse, x = librosa.beat.tempogram(y=y, sr=sr)
+#print(pulse, x)
