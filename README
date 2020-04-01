@@ -1,0 +1,5 @@
+Audio Experiment - sluzy do testowania roznych cech na konkretnym utworze
+Audio Analysis - wyciaga wybrane cechy z kazdego utowru w git zanie i zapiseje dane do pliku dataset
+Genre Model - tworzy model KNN 
+Towardsdatascience - implementacja kodu ze strony 
+Data - zawiera kilka stworzonych datasetow 
