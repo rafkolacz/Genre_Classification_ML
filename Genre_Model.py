@@ -21,7 +21,7 @@ Y = np.array(data[predict])
 
 x_train, x_test, y_train, y_test = sklearn.model_selection.train_test_split(X, Y, test_size=0.1)
 
-pca_model = PCA(n_components=6)
+pca_model = PCA(n_components=4)
 pca_model.fit(x_train)
 x_train = pca_model.transform(x_train)
 x_test = pca_model.transform(x_test)
