@@ -18,8 +18,12 @@ Y = np.array(data[predict])
 
 # le = preprocessing.LabelEncoder()
 # Y = le.fit_transform(Y)
+scaler = preprocessing.MinMaxScaler()
+X = scaler.fit_transform(X)
 
 x_train, x_test, y_train, y_test = sklearn.model_selection.train_test_split(X, Y, test_size=0.1)
+
+
 
 pca_model = PCA(n_components=4)
 pca_model.fit(x_train)
