@@ -22,7 +22,8 @@ test = pca_model.transform(test)
 
 predicted = model.predict(test)
 
-#names = ["blues", "classical", "country", "disco", "hiphop", "jazz", "metal", "pop", "reggae", "rock"]
-names = ["blues", "classical", "country", "X", "X", "X", "X", "X", "reggae", "X"]
+names = ["blues", "classical", "country", "disco", "hiphop", "jazz", "metal", "pop", "reggae", "rock"]
+#names = ["blues", "classical", "country", "X", "X", "X", "X", "X", "reggae", "X"]
+print(predicted)
 for x in range(len(predicted)):
     print("Predicted: ", predicted[x])
