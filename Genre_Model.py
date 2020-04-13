@@ -7,9 +7,10 @@ from matplotlib import style
 from sklearn.metrics import confusion_matrix
 from sklearn import linear_model, preprocessing
 from sklearn.decomposition import PCA
+import Audio_Functions as audio
 from sklearn.neighbors import KNeighborsClassifier as knn
 
-data = pd.read_csv("Data/music3.data")
+data = pd.read_csv("Data/music7.data")
 
 predict = "Genre"
 
@@ -25,7 +26,7 @@ x_train, x_test, y_train, y_test = sklearn.model_selection.train_test_split(X, Y
 
 
 
-pca_model = PCA(n_components=4)
+pca_model = PCA(n_components=7)
 pca_model.fit(x_train)
 x_train = pca_model.transform(x_train)
 x_test = pca_model.transform(x_test)
@@ -56,4 +57,24 @@ for x in label:
     pyplot.xlabel(p)
     pyplot.ylabel(x)
     pyplot.show()
+'''
+
+'''
+path = 'Test/05.wav'
+
+feature = audio.audioAnalysis(path)
+feature2 = audio.audioAnalysis(path)
+
+test = []
+test.append(feature)
+test.append(feature2)
+test = pca_model.transform(test)
+
+predicted = model.predict(test)
+
+
+
+names = ["blues", "classical", "country", "disco", "hiphop", "jazz", "metal", "pop", "reggae", "rock"]
+for x in range(len(predicted)):
+    print("Predicted: ", predicted[x])
 '''

@@ -34,13 +34,17 @@ def feature_Extraction(genre, number):
 
 
 dataset = []
-genres = ["blues", "classical", "country", "disco", "hiphop", "jazz", "metal", "pop", "reggae", "rock"]
+#genres = ["blues", "classical", "country", "disco", "hiphop", "jazz", "metal", "pop", "reggae", "rock"]
+genres = ["blues", "classical", "country", "X", "X", "X", "X", "X", "reggae", "X"]
 
+count = 0   # just flag for better performance
 for genre in range(10):
     for songs in range(100):
         data = feature_Extraction(genre, songs)
         data.append(genres[genre])
         dataset.append(data)
+        print(count)
+        count += 1
 
 
 #columns = ["Zero crossing", "Centroid", "Rolloff", "Chroma Freq", "Tempo", "Contrast", "Tonal", "Flatness"]
@@ -50,4 +54,4 @@ for i in range(20):
 columns.append("Genre")
 
 df = pd.DataFrame(dataset, columns=columns)
-df.to_csv("music8.data", index=False)
+df.to_csv("musicDivision.data", index=False)
