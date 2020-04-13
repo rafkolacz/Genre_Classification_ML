@@ -8,6 +8,7 @@ import numpy as np
 
 audio_path = 'Gitzan/genres/genres/blues/blues.00000.wav'
 #audio_path = 'Test/02.wav'
+
 y, sr = librosa.load(audio_path)
 S, phase = librosa.magphase(librosa.stft(y=y))
 # print(type(x), type(sr))

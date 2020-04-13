@@ -3,3 +3,5 @@ Audio Analysis - wyciaga wybrane cechy z kazdego utowru w git zanie i zapiseje d
 Genre Model - tworzy model KNN 
 Towardsdatascience - implementacja kodu ze strony 
 Data - zawiera kilka stworzonych datasetow 
+
+Potrzebny pakiety: librosa, ffmpeg, numpy

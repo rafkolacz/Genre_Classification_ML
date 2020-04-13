@@ -34,8 +34,8 @@ def feature_Extraction(genre, number):
 
 
 dataset = []
-#genres = ["blues", "classical", "country", "disco", "hiphop", "jazz", "metal", "pop", "reggae", "rock"]
-genres = ["blues", "classical", "country", "X", "X", "X", "X", "X", "reggae", "X"]
+genres = ["blues", "classical", "country", "disco", "hiphop", "jazz", "metal", "pop", "reggae", "rock"]
+#genres = ["blues", "classical", "country", "X", "X", "X", "X", "X", "reggae", "X"]
 
 count = 0   # just flag for better performance
 for genre in range(10):
