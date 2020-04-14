@@ -25,7 +25,6 @@ X = scaler.fit_transform(X)
 x_train, x_test, y_train, y_test = sklearn.model_selection.train_test_split(X, Y, test_size=0.1)
 
 
-
 pca_model = PCA(n_components=7)
 pca_model.fit(x_train)
 x_train = pca_model.transform(x_train)
@@ -35,14 +34,15 @@ model = KNeighborsClassifier(n_neighbors=9)
 
 model.fit(x_train,y_train)
 
-acc = model.score(x_test,y_test)
+acc = model.score(x_test, y_test)
 print(acc)
 
 predicted = model.predict(x_test)
-names = ["blues", "classical", "country", "disco", "hiphop", "jazz", "metal", "pop", "reggae", "rock"]
+
 for x in range(len(predicted)):
     print("Predicted: ", predicted[x], "Actual: ", y_test[x])
 
+names = ["blues", "classical", "country", "disco", "hiphop", "jazz", "metal", "pop", "reggae", "rock"]
 conf = confusion_matrix(predicted, y_test, labels=names)
 print(conf)
 
@@ -59,22 +59,15 @@ for x in label:
     pyplot.show()
 '''
 
-'''
-path = 'Test/05.wav'
-
-feature = audio.audioAnalysis(path)
-feature2 = audio.audioAnalysis(path)
-
 test = []
-test.append(feature)
-test.append(feature2)
-test = pca_model.transform(test)
+for i in range(9):
+    path = 'Test/0' + str(i+1) + ".wav"
+    feature = audio.audioAnalysis(path)
+    test.append(feature)
+    print(i)
 
+test = pca_model.transform(test)
 predicted = model.predict(test)
 
-
-
-names = ["blues", "classical", "country", "disco", "hiphop", "jazz", "metal", "pop", "reggae", "rock"]
 for x in range(len(predicted)):
-    print("Predicted: ", predicted[x])
-'''
+    print(str(x+1) + " predicted: ", predicted[x])

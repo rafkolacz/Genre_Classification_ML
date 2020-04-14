@@ -4,26 +4,25 @@ import librosa
 from sklearn.decomposition import PCA
 from tkinter import *
 
-pickle_in = open("genre15.pickle", "rb")
+pickle_in = open("model/genre18.pickle", "rb")
 model = pickle.load(pickle_in)
 
-pickle_in = open("pcaModel15.pickle", "rb")
+pickle_in = open("pcamodel/pcaModel18.pickle", "rb")
 pca_model = pickle.load(pickle_in)
 
-path = 'Test/06.mp3'
-
-feature = audio.audioAnalysis(path)
-feature2 = audio.audioAnalysis(path)
-
 test = []
-test.append(feature)
-test.append(feature2)
+for i in range(9):
+    path = 'Test/0' + str(i+1) + ".mp3"
+    feature = audio.audioAnalysis(path)
+    print(feature)
+    test.append(feature)
+print("------------------------------------------------------")
+print(test)
+print("------------------------------------------------------")
 test = pca_model.transform(test)
-
 predicted = model.predict(test)
 
-names = ["blues", "classical", "country", "disco", "hiphop", "jazz", "metal", "pop", "reggae", "rock"]
-#names = ["blues", "classical", "country", "X", "X", "X", "X", "X", "reggae", "X"]
-print(predicted)
+print(test)
+
 for x in range(len(predicted)):
-    print("Predicted: ", predicted[x])
+    print(str(x+1) + " predicted: ", predicted[x])
