@@ -10,7 +10,7 @@ from sklearn.decomposition import PCA
 import Audio_Functions as audio
 from sklearn.neighbors import KNeighborsClassifier as knn
 
-data = pd.read_csv("Data/music7.data")
+data = pd.read_csv("Data/music9.data")
 
 predict = "Genre"
 

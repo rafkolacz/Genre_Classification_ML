@@ -48,7 +48,7 @@ for genre in range(10):
 
 
 #columns = ["Zero crossing", "Centroid", "Rolloff", "Chroma Freq", "Tempo", "Contrast", "Tonal", "Flatness"]
-columns = ["Zero crossing", "Centroid", "Rolloff", "Chroma Freq", "RMS", "Spectral Bandwidth", "Tempo", "Contrast", "Tonal", "Flatness", "BPM"]
+columns = ["Zero crossing", "Centroid", "Rolloff", "Chroma Freq", "RMS", "Spectral Bandwidth", "Tempo", "Contrast", "Tonal", "Flatness"]
 for i in range(20):
     columns.append("MFCC " + str(i + 1))
 columns.append("Genre")
