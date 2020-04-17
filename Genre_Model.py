@@ -36,7 +36,6 @@ model.fit(x_train,y_train)
 
 acc = model.score(x_test, y_test)
 print(acc)
-
 predicted = model.predict(x_test)
 
 for x in range(len(predicted)):
@@ -60,14 +59,17 @@ for x in label:
 '''
 
 test = []
-for i in range(9):
+for i in range(7):
     path = 'Test/0' + str(i+1) + ".wav"
     feature = audio.audioAnalysis(path)
     test.append(feature)
-    print(i)
+    print(feature)
 
+pca_model = PCA(n_components=7)
+pca_model.fit(test)
 test = pca_model.transform(test)
-predicted = model.predict(test)
+print(test)
+predict = model.predict(test)
 
-for x in range(len(predicted)):
-    print(str(x+1) + " predicted: ", predicted[x])
+for x in range(len(predict)):
+    print(str(x+1) + " predicted: ", predict[x])
