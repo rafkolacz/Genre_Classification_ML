@@ -36,22 +36,33 @@ def fileAnalysis(path):
     return feature
 
 
-#
+#  returns genre of particular song (specified by path)
 def prediction(path):
+    # opens out best model
     pickle_in = open("model/genre18.pickle", "rb")
     model = pickle.load(pickle_in)
-    toanalyse = pd.read_csv("Data/music9.data")
-    predict = "Genre"
 
-    toanalyse = np.array(toanalyse.drop([predict], 1))
-    #toanalyse =[[0.08304482066898686, 1784.165849538755, 3805.8396058403423, 0.35008812970487335, 0.13022792, 2002.4490601176963, 0.1522905701561464, 20.526698693370026, 0.001626518606774716, 0.0044983495, -113.57065006014841, 121.57179828375645, -19.168141830786567, 42.36641931081864, -6.364662969610004, 18.62349792464524, -13.704889705913923, 15.343149555432882, -12.27410844121361, 10.976570552258794, -8.326572193800242, 8.803791231568432, -3.672299421905254, 5.7479945471953755, -5.162881230931701, 0.7527385539353071, -1.6902141675534033, -0.4089800418536765, -2.3035220174566478, 1.2212897403748306]]
-    #feature = fileAnalysis(path)
-    #np.append([toanalyse,feature], axis = 0)
-    #pca_model = PCA(n_components=1)
-    #pca_model.fit(toanalyse)
-    #toanalyse = pca_model.transform(toanalyse)
-    print(toanalyse)
+    # array must match
+    toanalyse = pd.read_csv("temp.data")
+    # predict = "Genre"
+    # toanalyse = np.array(toanalyse.drop([predict], 1))
+    # instead of temp we can use for example music9.data
+    # temp.data consist features from new songs (not from gitzan)
+
+    # now we extract features of our song
+    feature = fileAnalysis(path)
+
+    # ddaing new row, columns must match
+    feature = pd.DataFrame([feature], columns=list('ABCDEFGHIJKLMNOPQRSTUVWXYZ1234'))
+    toanalyse = toanalyse.append(feature, ignore_index=True)
+
+    # creating pca model
+    pca_model = PCA(n_components=8)  # must be the same value as previous fit
+    pca_model.fit(toanalyse)
+    toanalyse = pca_model.transform(toanalyse)
     predicted = model.predict(toanalyse)
-    return predicted
+
+    # returns last genre
+    return predicted[-1]
 
 
