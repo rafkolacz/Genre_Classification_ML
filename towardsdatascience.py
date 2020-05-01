@@ -4,10 +4,11 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 from keras import models
 from keras import layers
+import pickle
 from sklearn.metrics import confusion_matrix
 
 
-data = pd.read_csv("Data/music8.data")
+data = pd.read_csv("Data/music9.data")
 
 genre_list = data.iloc[:, -1]
 encoder = LabelEncoder()
@@ -36,6 +37,7 @@ history = model.fit(X_train,y_train,epochs=20,batch_size=128)
 test_loss, test_acc = model.evaluate(X_test,y_test)
 
 print('test_acc: ', test_acc)
-
+with open("towardsPickle.pickle", "wb") as f:
+    pickle.dump(model, f)
 predicted = model.predict(X_test)
 names = ["blues", "classical", "country", "disco", "hiphop", "jazz", "metal", "pop", "reggae", "rock"]

@@ -65,4 +65,3 @@ def prediction(path):
     # returns last genre
     return predicted[-1]
 
-
