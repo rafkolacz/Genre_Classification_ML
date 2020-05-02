@@ -3,80 +3,98 @@ from tkinter import *
 from tkinter.filedialog import askopenfilename
 import tkinter.ttk as ttk
 import time
+import threading
 
 
+# Error for wrong data format (not mp3 or wav)
 class ExtensionError(Exception):
     pass
 
 
-def alert():
-    alert = Toplevel()
-    alert.title("Error")
-    alert.resizable(False,False)
-    alert.geometry("220x50+900+400")
-    alertLabel = Label(alert, text="Wrong file, use only mp3, wav").pack()
-    myButton = Button(alert, text="Close", command=alert.destroy).pack()
+# class for main GUI
+class GenreWindow:
+    def __init__(self, master):
+        self.master = master
+        # some basic options
+        master.title("Genre Predictor")
+        master.resizable(False, False)
+        master.geometry("400x140+900+400")
 
+        # Welcoming labels
+        self.myLabel1 = Label(master, text=" Hello, welcome in Genre Predictor!")
+        self.myLabel1.grid(row=1, column=1)
+        self.myLabel2 = Label(master, text="Please pick your songs location:")
+        self.myLabel2.grid(row=2, column=1)
 
-def progressBar():
-    progressWindow = Toplevel()
-    progressWindow.title("Progression")
-    progressWindow.resizable(False,False)
-    progressWindow.geometry("220x50+900+400")
-    var = IntVar()
-    var.set(10)
-    progressbar = ttk.Progressbar(progressWindow, maximum=100, variable=var, orient='horizontal',
-                                  mode='determinate').pack()  # tworzenie poziomego paska postępu
+        # Browsing Button
+        self.browseButton = Button(master, text="Browse", command=self.openFile)
+        self.browseButton.grid(row=4, column=1)
 
+        # Action Button
+        self.predictButton = Button(master, text="Predict", command=self.genrePred)
+        self.predictButton.grid(row=5, column=1)
 
-def cleanLabel():
-    global location_str
-    myLabel4 = Label(root, textvariable=location_str)
-    myLabel4.grid(row=3, column=1)
+    # function used when wrong file is picked
+    def alert(self):
+        self.alert = Toplevel()
+        self.alert.title("Error")
+        self.alert.resizable(False,False)
+        self.alert.geometry("220x50+900+400")
+        self.alertLabel = Label(self.alert, text="Wrong file, use only mp3, wav").pack()
+        self.myButton = Button(self.alert, text="Close", command=self.alert.destroy).pack()
 
+    # function for cleaning location label
+    def cleanLabel(self):
+        global location_str
+        self.myLabel4 = Label(root, textvariable=location_str)
+        self.myLabel4.grid(row=3, column=1)
 
-def openFile():
-    global filename
-    global location_str
-    filename = askopenfilename()
-    if not location_str:
-        cleanLabel()
-    location_str.set(filename)
-    myLabel4 = Label(root, textvariable=location_str)
-    myLabel4.grid(row=3, column=1)
-    return 0
+    # fake progress bar, work in progress
+    def progressBar(self):
+        self.progressWindow = Toplevel()
+        self.progressWindow.title("Progression")
+        self.progressWindow.resizable(False,False)
+        self.progressWindow.geometry("220x50+900+400")
+        var = IntVar()
+        var.set(10)
+        self.progressbar = ttk.Progressbar(self.progressWindow, maximum=100, variable=var, orient='horizontal',
+                                      mode='determinate').pack()  # tworzenie poziomego paska postępu
+    # file selection
+    def openFile(self):
+        global filename # 2 global values for better performance
+        global location_str
+        filename = askopenfilename()    # seek file
+        if not location_str:            # erase nonempty label
+            self.cleanLabel()
+        location_str.set(filename)      # show current file location (with label below)
 
+        self.myLabel4 = Label(root, textvariable=location_str)
+        self.myLabel4.grid(row=3, column=1)
+        return 0
 
-def genrePred():
-    try:
-        if not filename.endswith(('.mp3', '.wav')):
-            raise ExtensionError
-        progressBar()
-        genre = audio.prediction(filename)
-        myLabel5 = Label(root, text="Songs genre is: " + genre)
-        myLabel5.grid(row=6, column=1)
-    except ExtensionError:
-        alert()
+    # execute function from Audio_Function (prediction)
+    # returns genre
+    def genrePred(self):
+        global genre
+        try:                            # checking if file extension is acceptable
+            if not filename.endswith(('.mp3', '.wav')):
+                raise ExtensionError
+            self.progressBar()
+            genre = audio.prediction(filename)  # function from Audio_Function
+
+            # Label that shows genre (need  something to erase old genres!)
+            self.myLabel5 = Label(root, text="Songs genre is: " + genre)
+            self.myLabel5.grid(row=6, column=1)
+        except ExtensionError:
+            self.alert()
+
 
 # Main window
 root = Tk()
-root.title("Genre Predictor")
-root.resizable(False, False)
-root.geometry("400x140+900+400")
 
-location_str = StringVar()
-filename = ''
-
-myLabel1 = Label(root, text=" Hello, welcome in Genre Predictor!")
-myLabel1.grid(row=1, column=1)
-myLabel2 = Label(root,text = "Please pick your songs location:")
-myLabel2.grid(row=2, column=1)
-
-
-browseButton = Button(root, text="Browse", command=openFile)
-browseButton.grid(row=4, column=1)
-
-predictButton = Button(root, text="Predict", command=genrePred)
-predictButton.grid(row=5, column=1)
-
+# for better performance 3 values are local
+location_str = StringVar()  # location of music file (for gui)
+filename = ''               # location of music file
+genre = ''                  # genre
+gui = GenreWindow(root)
 root.mainloop()
