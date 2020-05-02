@@ -2,47 +2,56 @@ import Audio_Functions as audio
 from tkinter import *
 from tkinter.filedialog import askopenfilename
 
-filename = ''
 
+class ExtensionError(Exception):
+    pass
+
+
+def alert():
+    alert = Toplevel()
+    alert.title("Error")
+    alert.resizable(False,False)
+    alert.geometry("220x50+900+400")
+    alertLabel = Label(alert, text="Wrong file, use only mp3, wav").pack()
+    myButton = Button(alert, text="Close", command=alert.destroy).pack()
 
 
 def cleanLabel():
-    #location_str = StringVar()
-    #location_str.set(" ")
-    global location_str2
-    myLabel4 = Label(root, textvariable=location_str2)
+    global location_str
+    myLabel4 = Label(root, textvariable=location_str)
     myLabel4.grid(row=3, column=1)
 
 
 def openFile():
     global filename
-    global location_str2
-    location_str = StringVar()
+    global location_str
     filename = askopenfilename()
-    if not location_str2:
+    if not location_str:
         cleanLabel()
-    location_str2.set(filename)
-    myLabel4 = Label(root, textvariable=location_str2)
+    location_str.set(filename)
+    myLabel4 = Label(root, textvariable=location_str)
     myLabel4.grid(row=3, column=1)
     return 0
 
 
 def genrePred():
-    if filename == '':
-        myLabel4 = Label(root, text="Please input file first!")
-        myLabel4.grid(row=3, column=1)
-    else:
+    try:
+        if not filename.endswith(('.mp3', '.wav')):
+            raise ExtensionError
         genre = audio.prediction(filename)
         myLabel5 = Label(root, text="Songs genre is: " + genre)
         myLabel5.grid(row=6, column=1)
-
+    except ExtensionError:
+        alert()
 
 # Main window
 root = Tk()
 root.title("Genre Predictor")
 root.resizable(False, False)
 root.geometry("400x140+900+400")
-location_str2 = StringVar()
+
+location_str = StringVar()
+filename = ''
 
 myLabel1 = Label(root, text=" Hello, welcome in Genre Predictor!")
 myLabel1.grid(row=1, column=1)
