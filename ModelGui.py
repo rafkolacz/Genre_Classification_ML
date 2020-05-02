@@ -1,6 +1,8 @@
 import Audio_Functions as audio
 from tkinter import *
 from tkinter.filedialog import askopenfilename
+import tkinter.ttk as ttk
+import time
 
 
 class ExtensionError(Exception):
@@ -14,6 +16,17 @@ def alert():
     alert.geometry("220x50+900+400")
     alertLabel = Label(alert, text="Wrong file, use only mp3, wav").pack()
     myButton = Button(alert, text="Close", command=alert.destroy).pack()
+
+
+def progressBar():
+    progressWindow = Toplevel()
+    progressWindow.title("Progression")
+    progressWindow.resizable(False,False)
+    progressWindow.geometry("220x50+900+400")
+    var = IntVar()
+    var.set(10)
+    progressbar = ttk.Progressbar(progressWindow, maximum=100, variable=var, orient='horizontal',
+                                  mode='determinate').pack()  # tworzenie poziomego paska postępu
 
 
 def cleanLabel():
@@ -38,6 +51,7 @@ def genrePred():
     try:
         if not filename.endswith(('.mp3', '.wav')):
             raise ExtensionError
+        progressBar()
         genre = audio.prediction(filename)
         myLabel5 = Label(root, text="Songs genre is: " + genre)
         myLabel5.grid(row=6, column=1)
