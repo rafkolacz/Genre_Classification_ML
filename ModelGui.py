@@ -2,8 +2,6 @@ import Audio_Functions as audio
 from tkinter import *
 from tkinter.filedialog import askopenfilename
 import tkinter.ttk as ttk
-import time
-import threading
 
 
 # Error for wrong data format (not mp3 or wav)
