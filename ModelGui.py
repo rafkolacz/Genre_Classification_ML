@@ -2,6 +2,8 @@ import Audio_Functions as audio
 from tkinter import *
 from tkinter.filedialog import askopenfilename
 import tkinter.ttk as ttk
+import threading
+import time
 
 
 # Error for wrong data format (not mp3 or wav)
@@ -25,11 +27,11 @@ class GenreWindow:
         self.myLabel2.grid(row=2, column=1)
 
         # Browsing Button
-        self.browseButton = Button(master, text="Browse", command=self.openFile)
+        self.browseButton = Button(master, text="Browse",  command=self.openFile)
         self.browseButton.grid(row=4, column=1)
 
         # Action Button
-        self.predictButton = Button(master, text="Predict", command=self.genrePred)
+        self.predictButton = ttk.Button(master, text="Predict", command=self.func)
         self.predictButton.grid(row=5, column=1)
 
     # function used when wrong file is picked
@@ -78,6 +80,7 @@ class GenreWindow:
             if not filename.endswith(('.mp3', '.wav')):
                 raise ExtensionError
             self.progressBar()
+
             genre = audio.prediction(filename)  # function from Audio_Function
 
             # Label that shows genre (need  something to erase old genres!)
@@ -86,7 +89,9 @@ class GenreWindow:
         except ExtensionError:
             self.alert()
 
-
+    def func(self):
+        self.thread1 = threading.Thread(target=self.genrePred)
+        self.thread1.start()
 # Main window
 root = Tk()
 
