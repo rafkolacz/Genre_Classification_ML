@@ -49,16 +49,22 @@ class GenreWindow:
         self.myLabel4 = Label(root, textvariable=location_str)
         self.myLabel4.grid(row=3, column=1)
 
-    # fake progress bar, work in progress
+    # loading label
     def progressBar(self):
         self.progressWindow = Toplevel()
         self.progressWindow.title("Progression")
         self.progressWindow.resizable(False,False)
         self.progressWindow.geometry("220x50+900+400")
-        var = IntVar()
-        var.set(10)
-        self.progressbar = ttk.Progressbar(self.progressWindow, maximum=100, variable=var, orient='horizontal',
-                                      mode='determinate').pack()  # tworzenie poziomego paska postępu
+        loading = ["Loading.", "Loading..", "Loading..."]
+        for i in range(100):
+            i = 0
+            for j in range(3):
+                self.loadLabel = Label(self.progressWindow, text=loading[j])
+                self.loadLabel.grid(row = 0,column = 0)
+                time.sleep(1)
+
+
+
     # file selection
     def openFile(self):
         global filename # 2 global values for better performance
@@ -86,6 +92,7 @@ class GenreWindow:
             # Label that shows genre (need  something to erase old genres!)
             self.myLabel5 = Label(root, text="Songs genre is: " + genre)
             self.myLabel5.grid(row=6, column=1)
+            self.progressWindow.destroy()
         except ExtensionError:
             self.alert()
 
